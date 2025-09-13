@@ -16,5 +16,7 @@ class Developer(BaseModel):
     following: int
     public_repos: int
     repositories: List[Repository] = []
-    cracked_score: Optional[float] = None
+    cracked_score: Optional[float] = None # Score from Gemini
+    github_score: Optional[float] = None # Score from quantitative metrics
+    ensemble_score: Optional[float] = None # Combined score
     reasoning: Optional[str] = None

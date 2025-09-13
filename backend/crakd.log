@@ -1,0 +1,4 @@
+2025-09-13 12:11:40,486 - INFO - __main__ - Starting CRAKD analysis for query: 'find me a cracked rust engineer' with limit: 10
+2025-09-13 12:11:41,147 - WARNING - __main__ - No developers found matching the criteria.
+2025-09-13 12:13:21,157 - INFO - __main__ - Starting CRAKD analysis for query: 'find a rust engineer' with limit: 10
+2025-09-13 12:13:21,732 - WARNING - __main__ - No developers found matching the criteria.
