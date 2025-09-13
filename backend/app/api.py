@@ -18,6 +18,6 @@ ranker = DeveloperRanker()
 
 @app.get("/search/{query}")
 async def search_cracked_devs(query: str, limit: int = 10):
-    developers = github_client.find_cracked_developers(query, limit=limit)
-    ranked_developers = ranker.rank_developers(developers, query)
+    developers = await github_client.find_cracked_developers(query, limit=limit)
+    ranked_developers = await ranker.rank_developers(developers, query)
     return ranked_developers

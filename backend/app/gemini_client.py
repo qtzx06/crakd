@@ -13,7 +13,7 @@ class GeminiClient:
         genai.configure(api_key=self.api_key)
         self.model = genai.GenerativeModel('gemini-1.5-flash')
 
-    def rate_developer(self, developer_data: dict, query: str) -> dict:
+    async def rate_developer(self, developer_data: dict, query: str) -> dict:
         prompt = f"""
         As an expert AI talent scout for software engineers, your task is to evaluate a developer's profile based on the provided data. The user is searching for: "{query}".
 
@@ -27,7 +27,7 @@ class GeminiClient:
         Return the output as a JSON object with two keys: "cracked_score" and "reasoning".
         """
         try:
-            response = self.model.generate_content(prompt)
+            response = await self.model.generate_content_async(prompt)
             # It's possible the model doesn't return perfect JSON, so we need to find it
             json_response_str = response.text.strip().replace('`', '').replace('json', '')
             return json.loads(json_response_str)

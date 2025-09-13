@@ -3,6 +3,7 @@ from .gemini_client import GeminiClient
 from .analysis import engineer_features
 import numpy as np
 import logging
+import asyncio
 
 logger = logging.getLogger(__name__)
 
@@ -10,16 +11,21 @@ class DeveloperRanker:
     def __init__(self):
         self.gemini_client = GeminiClient()
 
-    def rank_developers(self, developers: list[dict], query: str) -> list[Developer]:
+    async def rank_developers(self, developers: list[dict], query: str) -> list[Developer]:
         if not developers:
             return []
 
-        # 1. Get qualitative ratings from Gemini
-        rated_developers = []
+        # 1. Get qualitative ratings from Gemini concurrently
+        tasks = []
         for dev_data in developers:
             logger.info(f"Rating developer '{dev_data.get('username')}' with Gemini...")
-            rating = self.gemini_client.rate_developer(dev_data, query)
-            
+            tasks.append(self.gemini_client.rate_developer(dev_data, query))
+        
+        ratings = await asyncio.gather(*tasks)
+
+        rated_developers = []
+        for i, dev_data in enumerate(developers):
+            rating = ratings[i]
             dev = Developer(
                 username=dev_data.get("username"),
                 name=dev_data.get("name"),

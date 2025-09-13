@@ -24,7 +24,10 @@ def parse_query(query: str) -> dict:
             parsed["role"] = role
             break
     
-    # Treat the rest as keywords
-    parsed["keywords"] = [word for word in query.split() if word.lower() not in languages and word.lower() not in roles]
+    # Stop words to ignore
+    stop_words = ["find", "me", "a", "an", "the", "is", "are", "in", "on", "at", "for", "with", "of", "and", "or", "but", "cracked"]
+
+    # Treat the rest as keywords, filtering out stop words
+    parsed["keywords"] = [word for word in query.split() if word.lower() not in languages and word.lower() not in roles and word.lower() not in stop_words]
 
     return parsed

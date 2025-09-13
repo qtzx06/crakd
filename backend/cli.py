@@ -1,5 +1,6 @@
 import argparse
 import logging
+import asyncio
 from app.github_client import GitHubClient
 from app.ranking import DeveloperRanker
 from app.analysis import engineer_features, perform_pca_and_visualize
@@ -14,9 +15,9 @@ logging.basicConfig(level=logging.INFO,
                     ])
 logger = logging.getLogger(__name__)
 
-def main():
+async def main():
     parser = argparse.ArgumentParser(description="CRAKD: AI That Identifies Cracked Talent")
-    parser.add_argument("query", type=str, help="The search query to find developers (e.g., 'cracked rust engineer')")
+    parser.add_argument("query", type=str, nargs='?', default="find me a cracked rust engineer", help="The search query to find developers (e.g., 'cracked rust engineer')")
     parser.add_argument("--limit", type=int, default=10, help="Number of developers to return")
     args = parser.parse_args()
 
@@ -24,7 +25,7 @@ def main():
 
     # 1. Find candidate developers
     github_client = GitHubClient()
-    developers_data = github_client.find_cracked_developers(args.query, limit=args.limit)
+    developers_data = await github_client.find_cracked_developers(args.query, limit=args.limit)
 
     if not developers_data:
         logger.warning("No developers found matching the criteria.")
@@ -36,7 +37,7 @@ def main():
 
     # 3. Rank developers using the ensemble model
     ranker = DeveloperRanker()
-    ranked_developers = ranker.rank_developers(developers_data, args.query)
+    ranked_developers = await ranker.rank_developers(developers_data, args.query)
 
     # 4. Display results
     logger.info("--- CRACKED DEVELOPER RANKING ---")
@@ -52,4 +53,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
