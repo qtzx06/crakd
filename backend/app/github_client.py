@@ -16,21 +16,19 @@ class GitHubClient:
         )
         self.client = Client(transport=self.transport, fetch_schema_from_transport=True)
 
-    def _build_graphql_search_query(self, language=None, role=None, keywords=None):
+    def _build_graphql_search_query(self, language=None, role=None, primary_keyword=None):
         """Builds a GitHub GraphQL search query string."""
         query_parts = ["type:user", "followers:>100", "repos:>10"]
         if language:
             query_parts.append(f"language:{language}")
         
-        # Combine role and keywords for a general search
-        all_keywords = (keywords or []) + ([role] if role else [])
-        if all_keywords:
-            # Filter out None or empty strings from keywords
-            valid_keywords = [kw for kw in all_keywords if kw]
-            if valid_keywords:
-                # Join keywords for a general search, not restricted to bio
-                keyword_query = " ".join(valid_keywords)
-                query_parts.append(keyword_query)
+        # Add role as a general search term
+        if role:
+            query_parts.append(role)
+
+        # Add the primary keyword to search in the user's bio
+        if primary_keyword:
+            query_parts.append(f'"{primary_keyword}" in:bio')
             
         return " ".join(query_parts)
 
@@ -40,7 +38,7 @@ class GitHubClient:
         github_query_str = self._build_graphql_search_query(
             language=parsed_query.get('language'),
             role=parsed_query.get('role'),
-            keywords=parsed_query.get('keywords')
+            primary_keyword=parsed_query.get('primary_keyword')
         )
         print(f"Executing GitHub GraphQL search with query: '{github_query_str}'")
 
