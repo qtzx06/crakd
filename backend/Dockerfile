@@ -5,13 +5,14 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Copy the dependencies file to the working directory
-COPY backend/requirements.txt .
+# The source path is now relative to the Dockerfile's location (the 'backend' folder)
+COPY requirements.txt .
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the app code to the working directory
-COPY backend/app/ ./app
+COPY app/ ./app
 
 # Expose the port the app runs on
 EXPOSE 10000
