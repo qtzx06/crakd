@@ -1,0 +1,22 @@
+[project]
+name = "crakd-backend"
+version = "0.1.0"
+description = "AI that identifies cracked talent."
+requires-python = ">=3.9, <3.10"
+dependencies = [
+    "fastapi==0.104.1",
+    "uvicorn==0.24.0",
+    "PyGithub==1.59.1",
+    "python-dotenv==1.0.0",
+    "redis==5.0.1",
+    "pydantic==2.5.0",
+    "google-generativeai==0.5.4",
+    "scikit-learn==1.3.2",
+    "matplotlib==3.8.2",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "ruff",
+]
+# You can add uv-specific configuration here if needed
