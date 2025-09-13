@@ -1,0 +1,18 @@
+# Environments
+.env
+backend/.env
+.venv/
+backend/.venv/
+
+# Logs
+*.log
+backend/crakd.log
+
+# Analysis output
+*.png
+backend/pca_analysis.png
+
+# Caches
+.ruff_cache/
+__pycache__/
+*.pyc
