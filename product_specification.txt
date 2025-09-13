@@ -1,0 +1,61 @@
+# Product Specification: Crakd
+
+## 1. Product Name
+Crakd
+
+## 2. Tagline
+AI-Powered Talent Identification for Developers.
+
+## 3. Core Concept
+Crakd is a web application and local analysis tool designed to identify "cracked" (exceptionally talented) software developers. It leverages a hybrid AI model that combines quantitative GitHub metrics with qualitative analysis from a Large Language Model (Gemini) to rank developers based on natural language queries.
+
+## 4. Target Audience
+*   Technical Recruiters
+*   Hiring Managers
+*   Team Leads and Engineering Managers
+
+## 5. Key Features
+
+### Web Application (crakd.co)
+*   **Natural Language Search:** Users can input descriptive queries like "find me a cracked frontend engineer" or "top rust developers".
+*   **AI-Powered Ranking:** The backend processes the query, fetches candidate data from GitHub, and uses an ensemble model (GitHub stats + Gemini AI reasoning) to score and rank the results.
+*   **Dynamic Top-3 Results:** The frontend displays the top 3 ranked developers in a clean, animated list.
+*   **Developer Profiles:** Each result card displays the developer's username, an AI-generated summary explaining why they are highly ranked, and a direct link to their GitHub profile.
+*   **Animated UI:** The interface uses Framer Motion for smooth, modern animations for the search bar and results.
+
+### Local Analysis Tool (CLI)
+*   **In-depth Analysis:** A command-line interface (`cli.py`) allows for local analysis with a configurable limit (defaulting to 50 developers).
+*   **PCA Visualization:** The CLI generates a `pca_analysis.png` file, a 2D scatter plot representing the developer data, to help visualize clusters of talent. The plot is dynamically titled with the search query and includes detailed labels.
+
+## 6. Technology Stack
+
+*   **Frontend:**
+    *   Framework: React (with Vite)
+    *   Animation: Framer Motion
+    *   Styling: Custom CSS
+    *   Deployment: Vercel (`crakd-frontend.vercel.app`)
+
+*   **Backend:**
+    *   Framework: Python (FastAPI)
+    *   APIs: GitHub GraphQL API, Google Gemini API
+    *   Deployment: Render (`crakd-rznc.onrender.com`) in a Docker container.
+
+*   **Domain & DNS:**
+    *   Registrar: Namecheap
+    *   Domain: `crakd.co`
+
+## 7. User Flow (Web App)
+
+1.  User navigates to `https://crakd.co`.
+2.  The landing page displays an animated search bar.
+3.  User types a query (e.g., "best python developers") and presses Enter.
+4.  The frontend makes an API call to the backend on Render.
+5.  The backend fetches data for up to 50 candidates from GitHub, analyzes them with the Gemini AI, and returns a ranked JSON array.
+6.  The frontend receives the data and dynamically displays the top 3 results with a smooth fade-in animation.
+7.  The user can click on any result card to open the corresponding developer's GitHub profile in a new tab.
+
+## 8. Local Usage
+
+1.  Navigate to the `backend` directory.
+2.  Run the command `uv run cli.py --query "your search query"`.
+3.  The script will print the ranked list of developers to the console and generate an updated `pca_analysis.png` in the `backend` directory.
