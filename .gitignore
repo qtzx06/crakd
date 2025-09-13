@@ -16,11 +16,16 @@ backend/crakd.log
 
 # Dependencies
 node_modules
+/frontend/node_modules
 
 # Build outputs
 dist
+/frontend/dist
 dist-ssr
 *.local
+
+# Media
+media/demo.mov
 
 # Analysis output
 *.png

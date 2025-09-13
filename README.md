@@ -1,12 +1,76 @@
-# React + Vite
+# crakd
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+AI-Powered Talent Identification for Developers.
 
-Currently, two official plugins are available:
+Crakd is a web application and local analysis tool designed to identify "cracked" (exceptionally talented) software developers. It leverages a hybrid AI model that combines quantitative GitHub metrics with qualitative analysis from a Large Language Model (Gemini) to rank developers based on natural language queries.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Demo
 
-## Expanding the ESLint configuration
+![Demo](./media/demo.gif)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+- **Frontend:** React, Vite, Framer Motion
+- **Backend:** Python, FastAPI, Docker
+- **APIs:** GitHub GraphQL, Google Gemini
+
+## Architecture
+
+![Architecture Diagram](./media/mermaid.svg)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js and npm
+- Python 3.8+ and pip
+- Docker
+
+### Installation & Usage
+
+#### Frontend
+
+1.  Navigate to the `frontend` directory:
+    ```bash
+    cd frontend
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Start the development server:
+    ```bash
+    npm run dev
+    ```
+
+#### Backend
+
+1.  Navigate to the `backend` directory:
+    ```bash
+    cd backend
+    ```
+2.  Create a virtual environment and install dependencies:
+    ```bash
+    python -m venv .venv
+    source .venv/bin/activate
+    pip install -r requirements.txt
+    ```
+3.  Create a `.env` file and add your API keys:
+    ```
+    GITHUB_TOKEN=your_github_token
+    GEMINI_API_KEY=your_gemini_api_key
+    ```
+4.  Run the FastAPI server:
+    ```bash
+    uvicorn app.api:app --reload
+    ```
+
+#### Local Analysis Tool (CLI)
+
+1.  Navigate to the `backend` directory.
+2.  Run the CLI tool with your query:
+    ```bash
+    python cli.py --query "your search query"
+    ```
+
+This will output the ranked list and generate a `pca_analysis.png` visualization.
