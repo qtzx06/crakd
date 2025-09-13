@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import NebulaSketch from './NebulaSketch';
 import Results from './Results';
+import useTypingAnimation from '../hooks/useTypingAnimation';
 import '../styles/LandingPage.css';
 
 const LandingPage = () => {
@@ -9,6 +10,8 @@ const LandingPage = () => {
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [apiResponse, setApiResponse] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  
+  const { displayedText: typedTitle } = useTypingAnimation('crakd.co', 150, 600);
   
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
@@ -45,10 +48,20 @@ const LandingPage = () => {
         transition={{ duration: 1 }}
       >
         <motion.div 
+          className="header"
+          initial={{ y: -30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <h1 className="brand-title">{typedTitle}<span className="cursor">|</span></h1>
+          <p className="brand-subtitle">Find the most cracked developers</p>
+        </motion.div>
+        
+        <motion.div 
           className="search-container"
           initial={{ y: -50, opacity: 0, '--backdrop-blur': '0px' }}
           animate={{ y: 0, opacity: 1, '--backdrop-blur': '15px' }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           style={{ backdropFilter: 'blur(var(--backdrop-blur))' }}
         >
           <div className={`search-field-wrapper ${isInputFocused ? 'focused' : ''}`}>
