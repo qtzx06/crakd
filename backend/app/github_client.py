@@ -2,7 +2,7 @@ import os
 import asyncio
 from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
-from .utils import parse_query
+from .utils import parse_query_with_ai
 
 class GitHubClient:
     def __init__(self):
@@ -22,17 +22,21 @@ class GitHubClient:
         if language:
             query_parts.append(f"language:{language}")
         
-        # Combine role and keywords, and ensure each is treated as a separate "in:bio" condition
+        # Combine role and keywords for a general search
         all_keywords = (keywords or []) + ([role] if role else [])
         if all_keywords:
-            bio_query = " ".join([f'"{kw}" in:bio' for kw in all_keywords])
-            query_parts.append(bio_query)
+            # Filter out None or empty strings from keywords
+            valid_keywords = [kw for kw in all_keywords if kw]
+            if valid_keywords:
+                # Join keywords for a general search, not restricted to bio
+                keyword_query = " ".join(valid_keywords)
+                query_parts.append(keyword_query)
             
         return " ".join(query_parts)
 
     async def find_cracked_developers(self, query: str, limit: int = 10) -> list[dict]:
         """Finds developers using a single, efficient GraphQL query."""
-        parsed_query = parse_query(query)
+        parsed_query = await parse_query_with_ai(query)
         github_query_str = self._build_graphql_search_query(
             language=parsed_query.get('language'),
             role=parsed_query.get('role'),
