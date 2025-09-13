@@ -56,6 +56,8 @@ class GitHubClient:
                     login
                     name
                     bio
+                    avatarUrl
+                    url
                     followers {
                       totalCount
                     }
@@ -117,6 +119,8 @@ class GitHubClient:
                     "username": user_node.get('login'),
                     "name": user_node.get('name'),
                     "bio": user_node.get('bio'),
+                    "avatar_url": user_node.get('avatarUrl'),
+                    "html_url": user_node.get('url'),
                     "followers": followers_count,
                     "following": following_count,
                     "public_repos": public_repos_count,
