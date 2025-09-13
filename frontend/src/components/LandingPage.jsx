@@ -1,19 +1,36 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import NebulaSketch from './NebulaSketch';
+import Results from './Results';
 import '../styles/LandingPage.css';
 
 const LandingPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isInputFocused, setIsInputFocused] = useState(false);
+  const [apiResponse, setApiResponse] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
   };
   
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    console.log('Searching for:', searchQuery);
-    // Add search functionality here
+    if (!searchQuery.trim()) return;
+
+    setIsLoading(true);
+    setApiResponse(null);
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/search/${searchQuery}`);
+      const data = await response.json();
+      setApiResponse(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setApiResponse({ error: "Failed to fetch data" });
+    } finally {
+      setIsLoading(false);
+    }
   };
   
   return (
@@ -21,8 +38,19 @@ const LandingPage = () => {
       <div className="nebula-container">
         <NebulaSketch />
       </div>
-      <div className="content">
-        <div className="search-container">
+      <motion.div 
+        className="content"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <motion.div 
+          className="search-container"
+          initial={{ y: -50, opacity: 0, '--backdrop-blur': '0px' }}
+          animate={{ y: 0, opacity: 1, '--backdrop-blur': '15px' }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          style={{ backdropFilter: 'blur(var(--backdrop-blur))' }}
+        >
           <div className={`search-field-wrapper ${isInputFocused ? 'focused' : ''}`}>
             <form onSubmit={handleSearch}>
               <input 
@@ -34,7 +62,7 @@ const LandingPage = () => {
                 onFocus={() => setIsInputFocused(true)}
                 onBlur={() => setIsInputFocused(false)}
               />
-              <button type="submit" className="search-button">
+              <button type="submit" className="search-button" disabled={isLoading}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="11" cy="11" r="8"></circle>
                   <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -47,8 +75,9 @@ const LandingPage = () => {
             
             <div className="glow-effect"></div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+        <Results results={apiResponse} loading={isLoading} />
+      </motion.div>
     </div>
   );
 };
