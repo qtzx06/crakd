@@ -1,3 +1,9 @@
+# Environments
+.env
+backend/.env
+.venv/
+backend/.venv/
+
 # Logs
 logs
 *.log
@@ -6,11 +12,24 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+backend/crakd.log
 
+# Dependencies
 node_modules
+
+# Build outputs
 dist
 dist-ssr
 *.local
+
+# Analysis output
+*.png
+backend/pca_analysis.png
+
+# Caches
+.ruff_cache/
+__pycache__/
+*.pyc
 
 # Editor directories and files
 .vscode/*
