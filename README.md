@@ -1,4 +1,4 @@
-# crakd
+# crakd.co
 
 AI-Powered Talent Identification for Developers.
 
