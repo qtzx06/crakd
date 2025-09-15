@@ -44,17 +44,17 @@ const Results = ({ results, loading }) => {
     );
   }
 
-  const developerList = (results || []).slice(0, 3);
+  const developerList = (results || []).slice(0, 5);
 
   return (
     <AnimatePresence>
       {developerList.length > 0 && (
         <motion.div
           className="results-container"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
         >
           {developerList.map((dev, index) => (
             <motion.a
@@ -64,22 +64,15 @@ const Results = ({ results, loading }) => {
               rel="noopener noreferrer"
               className="developer-card"
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
-              layout
             >
               <div className="developer-info">
                 <span className="developer-login">{dev.username}</span>
                 {dev.reasoning && (
-                  <motion.p
-                    className="developer-summary"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
-                  >
+                  <p className="developer-summary">
                     {dev.reasoning}
-                  </motion.p>
+                  </p>
                 )}
               </div>
             </motion.a>
