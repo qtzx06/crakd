@@ -209,14 +209,14 @@
 /* Responsive styles */
 @media (max-width: 768px) {
   .brand-title {
-    font-size: 6.5rem; /* Significantly larger title */
+    font-size: 4.5rem; /* Significantly larger title */
     font-weight: 300;
     letter-spacing: 0.1rem;
   }
   
   .brand-subtitle {
     font-size: 1rem;
-    margin-top: -1rem; /* More space below title */
+    margin-top: -0.5rem; /* More space below title */
   }
   
   .search-input {
