@@ -1,10 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import '../styles/Results.css';
 
+const loadingMessages = [
+  "searching for cracked devs...",
+  "analyzing your request...",
+  "querying the github nebula for developers...",
+  "assembling candidate profiles...",
+  "deploying gemini ai for qualitative analysis...",
+  "engineering quantitative features...",
+  "calculating ensemble scores and ranking candidates...",
+  "finalizing the developer rankings...",
+  "backend is spinning up, this might take a moment..."
+];
+
 const Results = ({ results, loading }) => {
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+
+  useEffect(() => {
+    if (loading) {
+      const interval = setInterval(() => {
+        setCurrentMessageIndex((prevIndex) => (prevIndex + 1) % loadingMessages.length);
+      }, 3000);
+      return () => clearInterval(interval);
+    }
+  }, [loading]);
+
   if (loading) {
-    return <div className="loading-message">Searching for cracked devs...</div>;
+    return (
+      <div className="loading-message">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentMessageIndex}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5 }}
+          >
+            {loadingMessages[currentMessageIndex]}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    );
   }
 
   // The API returns a direct array, so we access it directly.
