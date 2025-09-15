@@ -207,14 +207,17 @@
   opacity: 1;
 }
 
-/* Laser tracing effect around the search field */
+/* Laser tracing effect with idle movement and hover animation */
 .laser-trace {
   position: absolute;
   background: linear-gradient(90deg, transparent 0%, #fff 50%, transparent 100%);
   box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #a0c4ff;
-  opacity: 0;
+  opacity: 1;
   pointer-events: none;
   z-index: 1;
+  
+  /* The transition will handle all smooth changes */
+  transition: transform 0.5s cubic-bezier(0.2, 1, 0.2, 1);
 }
 
 .laser-trace.top {
@@ -223,7 +226,6 @@
   width: 100%;
   height: 1px;
   transform-origin: left;
-  animation: laser-sweep 3s infinite ease-in-out;
 }
 
 .laser-trace.bottom {
@@ -232,7 +234,16 @@
   width: 100%;
   height: 1px;
   transform-origin: right;
-  animation: laser-sweep 3s infinite ease-in-out;
+}
+
+/* When NOT hovered, apply the intro animation, then the idle animation */
+.search-field-wrapper:not(:hover) .laser-trace {
+  animation: laser-intro 1.5s cubic-bezier(0.2, 1, 0.4, 1) forwards, laser-idle-move 5s infinite alternate ease-in-out 1.5s;
+}
+
+/* When hovered, just set the target transform. The transition will handle the animation. */
+.search-field-wrapper:hover .laser-trace {
+  transform: scaleX(1);
 }
 
 .glow-effect {
@@ -248,16 +259,26 @@
   animation: glow 3s infinite alternate;
 }
 
-@keyframes laser-sweep {
-  0%, 100% {
+/* A single, fluid intro animation */
+@keyframes laser-intro {
+  0% {
     transform: scaleX(0);
-    opacity: 0;
   }
-  10%, 90% {
-    opacity: 1;
+  80% {
+    transform: scaleX(0.692);
   }
-  50% {
-    transform: scaleX(1);
+  100% {
+    transform: scaleX(0.69)
+  }
+}
+
+/* Continuous, natural movement for the idle state */
+@keyframes laser-idle-move {
+  from {
+    transform: scaleX(0.69);
+  }
+  to {
+    transform: scaleX(0.75);
   }
 }
 
