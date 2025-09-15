@@ -1,4 +1,4 @@
-# crakd
+# crakd.co
 
 AI-Powered Talent Identification for Developers.
 
@@ -7,6 +7,10 @@ Crakd is a web application and local analysis tool designed to identify "cracked
 ## Demo
 
 ![Demo](./media/demo.gif)
+
+## Slideshow
+
+https://docs.google.com/presentation/d/1BpHcg1xGJRs0n8QMZO2NZ-OzX1LANCFfSVIV0zRcYII/edit?usp=sharing
 
 ## Tech Stack
 
