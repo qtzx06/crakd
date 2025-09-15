@@ -88,7 +88,7 @@ const LandingPage = () => {
               <input 
                 type="text" 
                 className="search-input" 
-                placeholder="ex: &quot;find me cracked rust developers&quot;"
+                placeholder="&quot;find me cracked rust developers&quot;"
                 value={searchQuery}
                 onChange={handleInputChange}
                 onFocus={() => setIsInputFocused(true)}
