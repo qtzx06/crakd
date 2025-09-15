@@ -86,37 +86,22 @@ const NebulaSketch = () => {
       a = 0;
 
       // Color based on distance from the center
-      const distanceFactor = rdist / 250; // 0 at center, 1 at edge
+      const distanceFactor = rdist / 142.069; // 0 at center, 1 at edge
       
-      // Center color (light green)
-      const r_center = 180;
+      // Center color (pure white)
+      const r_center = 255;
       const g_center = 255;
-      const b_center = 180;
+      const b_center = 255;
 
-      // Mid color (green)
-      const r_mid = 69;
-      const g_mid = 142;
-      const b_mid = 69;
+      // Edge color (your chosen orange)
+      const r_edge = 210;
+      const g_edge = 134;
+      const b_edge = 95;
 
-      // Edge color (dark, "burnt" red)
-      const r_edge = 100;
-      const g_edge = 10;
-      const b_edge = 10;
-
-      // Interpolate between the three colors
-      if (distanceFactor < 0.84) {
-        // From center to mid (most of the nebula)
-        const localFactor = distanceFactor / 0.83;
-        r = lerp(r_center, r_mid, localFactor);
-        g = lerp(g_center, g_mid, localFactor);
-        b = lerp(b_center, b_mid, localFactor);
-      } else {
-        // From mid to edge (only the outer fringe)
-        const localFactor = (distanceFactor - 0.84) / 0.15;
-        r = lerp(r_mid, r_edge, localFactor);
-        g = lerp(g_mid, g_edge, localFactor);
-        b = lerp(b_mid, b_edge, localFactor);
-      }
+      // Interpolate between the two colors
+      r = lerp(r_center, r_edge, distanceFactor);
+      g = lerp(g_center, g_edge, distanceFactor);
+      b = lerp(b_center, b_edge, distanceFactor);
       
       r = (r + rand(-20, 20)) | 0;
       g = (g + rand(-20, 20)) | 0;
@@ -192,12 +177,12 @@ const NebulaSketch = () => {
     function renderFrame() {
       ctx.save();
       
-      ctx.filter = 'blur(4px) brightness(150%)';
+      ctx.filter = 'blur(4px) brightness(120%)';
       ctx.drawImage(buffer.canvas, 0, 0);
       
       ctx.globalCompositeOperation = 'lighter';
       
-      ctx.filter = 'saturate(200%)';
+      ctx.filter = 'saturate(20%)';
       ctx.drawImage(buffer.canvas, 0, 0);
       
       ctx.restore();
