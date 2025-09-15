@@ -41,8 +41,8 @@
   letter-spacing: 0.2rem;
   margin: 0;
   color: white;
-  text-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 0 0 80px rgba(210, 134, 95, 0.4); /* Orange shadow */
-  background: linear-gradient(135deg, #ffc099 0%, #ffffff 40%, #ffffff 60%, #d2865f 100%); /* Orange gradient */
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.69), 0 0 80px rgba(255, 255, 255, 0.42); /* Orange shadow */
+  background: linear-gradient(142.69deg, #ffeee2 0%, #eec9b0 40%, #ffffff 60%, #efb496 100%); /* Orange gradient */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
