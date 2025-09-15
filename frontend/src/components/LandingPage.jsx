@@ -65,6 +65,14 @@ const LandingPage = () => {
           }}
         >
           <h1 className="brand-title">{typedTitle}<span className="cursor">|</span></h1>
+          <motion.p 
+            className="brand-subtitle"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 3, duration: 1 }}
+          >
+            <span>made by </span><a href="https://github.com/qtzx06" target="_blank" rel="noopener noreferrer">joshua</a><span> and </span><a href="https://github.com/stephenhungg" target="_blank" rel="noopener noreferrer">stephen</a>
+          </motion.p>
         </motion.div>
         
         <motion.div 
@@ -87,19 +95,12 @@ const LandingPage = () => {
                 onBlur={() => setIsInputFocused(false)}
               />
               <button type="submit" className="search-button" disabled={isLoading}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="11" cy="11" r="8"></circle>
                   <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
               </button>
             </form>
-            {/* Laser tracing effect */}
-            <div className="laser-trace top"></div>
-            <div className="laser-trace bottom"></div>
-            
-            <div className="glow-effect"></div>
-            
-            <div className="glow-effect"></div>
           </div>
         </motion.div>
         <Results results={apiResponse} loading={isLoading} />

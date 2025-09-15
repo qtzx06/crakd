@@ -84,9 +84,43 @@ const NebulaSketch = () => {
       ttl = 100 + rand(0, 200);
       vc = rand(1, 10);
       a = 0;
-      r = 80 + rand(0, 20) | 0;
-      g = 80 + rand(0, 40) | 0;
-      b = 100 + rand(0, 100) | 0;
+
+      // Color based on distance from the center
+      const distanceFactor = rdist / 250; // 0 at center, 1 at edge
+      
+      // Center color (light green)
+      const r_center = 180;
+      const g_center = 255;
+      const b_center = 180;
+
+      // Mid color (green)
+      const r_mid = 69;
+      const g_mid = 142;
+      const b_mid = 69;
+
+      // Edge color (dark, "burnt" red)
+      const r_edge = 100;
+      const g_edge = 10;
+      const b_edge = 10;
+
+      // Interpolate between the three colors
+      if (distanceFactor < 0.84) {
+        // From center to mid (most of the nebula)
+        const localFactor = distanceFactor / 0.83;
+        r = lerp(r_center, r_mid, localFactor);
+        g = lerp(g_center, g_mid, localFactor);
+        b = lerp(b_center, b_mid, localFactor);
+      } else {
+        // From mid to edge (only the outer fringe)
+        const localFactor = (distanceFactor - 0.84) / 0.15;
+        r = lerp(r_mid, r_edge, localFactor);
+        g = lerp(g_mid, g_edge, localFactor);
+        b = lerp(b_mid, b_edge, localFactor);
+      }
+      
+      r = (r + rand(-20, 20)) | 0;
+      g = (g + rand(-20, 20)) | 0;
+      b = (b + rand(-20, 20)) | 0;
       
       return [x, y, vx, vy, a, l, ttl, vc, r, g, b];
     }
