@@ -43,24 +43,36 @@ const LandingPage = () => {
       </div>
       <motion.div 
         className="content"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        initial="hidden"
+        animate="visible"
+        variants={{
+          visible: {
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.3,
+            },
+          },
+          hidden: {
+            opacity: 0,
+          },
+        }}
       >
         <motion.div 
           className="header"
-          initial={{ y: -30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          variants={{
+            visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
+            hidden: { y: -30, opacity: 0 },
+          }}
         >
           <h1 className="brand-title">{typedTitle}<span className="cursor">|</span></h1>
         </motion.div>
         
         <motion.div 
           className="search-container"
-          initial={{ y: -50, opacity: 0, '--backdrop-blur': '0px' }}
-          animate={{ y: 0, opacity: 1, '--backdrop-blur': '15px' }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          variants={{
+            visible: { y: 0, opacity: 1, '--backdrop-blur': '15px', transition: { duration: 0.8, ease: "easeOut" } },
+            hidden: { y: -50, opacity: 0, '--backdrop-blur': '0px' },
+          }}
           style={{ backdropFilter: 'blur(var(--backdrop-blur))' }}
         >
           <div className={`search-field-wrapper ${isInputFocused ? 'focused' : ''}`}>
@@ -84,6 +96,8 @@ const LandingPage = () => {
             {/* Laser tracing effect */}
             <div className="laser-trace top"></div>
             <div className="laser-trace bottom"></div>
+            
+            <div className="glow-effect"></div>
             
             <div className="glow-effect"></div>
           </div>

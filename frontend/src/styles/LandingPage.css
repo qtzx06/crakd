@@ -138,7 +138,7 @@
   width: 100%;
   padding: 10px;
   border-radius: 20px;
-  background: rgba(40, 40, 40, 0.7); /* 10% lighter background */
+  background: transparent;
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -148,7 +148,7 @@
 }
 
 .search-field-wrapper.focused {
-  background: rgba(50, 50, 50, 0.8); /* 10% lighter background when focused */
+  background: transparent;
   border-color: rgba(255, 255, 255, 0.3); /* Changed yellow to white */
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 255, 255, 0.15); /* Changed yellow to white */
 }
@@ -210,50 +210,29 @@
 /* Laser tracing effect around the search field */
 .laser-trace {
   position: absolute;
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
-  box-shadow: 0 0 8px rgba(255,255,255,0.8), 0 0 12px rgba(255,255,255,0.4);
+  background: linear-gradient(90deg, transparent 0%, #fff 50%, transparent 100%);
+  box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #a0c4ff;
+  opacity: 0;
   pointer-events: none;
   z-index: 1;
 }
 
 .laser-trace.top {
-  top: -1px;
+  top: 0;
   left: 0;
   width: 100%;
-  height: 2px;
+  height: 1px;
   transform-origin: left;
-  animation: laser-trace-top 4s infinite linear;
-  animation-delay: 0s;
-}
-
-.laser-trace.right {
-  top: 0;
-  right: -1px;
-  width: 2px;
-  height: 100%;
-  transform-origin: top;
-  animation: laser-trace-right 4s infinite linear;
-  animation-delay: 1s;
+  animation: laser-sweep 3s infinite ease-in-out;
 }
 
 .laser-trace.bottom {
-  bottom: -1px;
+  bottom: 0;
   left: 0;
   width: 100%;
-  height: 2px;
+  height: 1px;
   transform-origin: right;
-  animation: laser-trace-bottom 4s infinite linear;
-  animation-delay: 0s;
-}
-
-.laser-trace.left {
-  top: 0;
-  left: -1px;
-  width: 2px;
-  height: 100%;
-  transform-origin: bottom;
-  animation: laser-trace-left 4s infinite linear;
-  animation-delay: 3s;
+  animation: laser-sweep 3s infinite ease-in-out;
 }
 
 .glow-effect {
@@ -263,112 +242,33 @@
   right: 0;
   bottom: 0;
   border-radius: 20px;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
   pointer-events: none;
   opacity: 0;
-  animation: glow 4s infinite alternate;
+  animation: glow 3s infinite alternate;
 }
 
-/* Top laser: visible for first 25% of cycle */
-@keyframes laser-trace-top {
-  0% {
-    transform: scaleX(0);
-    opacity: 1;
-  }
-  20% {
-    transform: scaleX(1);
-    opacity: 1;
-  }
-  25% {
-    transform: scaleX(1);
-    opacity: 0;
-  }
-  100% {
+@keyframes laser-sweep {
+  0%, 100% {
     transform: scaleX(0);
     opacity: 0;
   }
-}
-
-/* Right laser: visible for second 25% of cycle */
-@keyframes laser-trace-right {
-  0% {
-    transform: scaleY(0);
-    opacity: 0;
-  }
-  25% {
-    transform: scaleY(0);
-    opacity: 1;
-  }
-  45% {
-    transform: scaleY(1);
+  10%, 90% {
     opacity: 1;
   }
   50% {
-    transform: scaleY(1);
-    opacity: 0;
-  }
-  100% {
-    transform: scaleY(0);
-    opacity: 0;
-  }
-}
-
-/* Bottom laser: visible for third 25% of cycle */
-@keyframes laser-trace-bottom {
-  0% {
-    transform: scaleX(0);
-    opacity: 0;
-  }
-  50% {
-    transform: scaleX(0);
-    opacity: 1;
-  }
-  70% {
     transform: scaleX(1);
-    opacity: 1;
-  }
-  75% {
-    transform: scaleX(1);
-    opacity: 0;
-  }
-  100% {
-    transform: scaleX(0);
-    opacity: 0;
-  }
-}
-
-/* Left laser: visible for final 25% of cycle */
-@keyframes laser-trace-left {
-  0% {
-    transform: scaleY(0);
-    opacity: 0;
-  }
-  75% {
-    transform: scaleY(0);
-    opacity: 1;
-  }
-  95% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scaleY(1);
-    opacity: 0;
   }
 }
 
 @keyframes glow {
-  0% {
-    opacity: 0.2;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+  from {
+    opacity: 0.3;
+    box-shadow: 0 0 20px rgba(160, 196, 255, 0.2), 0 0 30px rgba(255, 255, 255, 0.1);
   }
-  50% {
-    opacity: 0.5;
-    box-shadow: 0 0 50px rgba(255, 255, 255, 0.2), 0 0 100px rgba(255, 255, 255, 0.1);
-  }
-  100% {
-    opacity: 0.2;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+  to {
+    opacity: 0.7;
+    box-shadow: 0 0 30px rgba(160, 196, 255, 0.4), 0 0 45px rgba(255, 255, 255, 0.2);
   }
 }
 
