@@ -54,7 +54,6 @@ const LandingPage = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
         >
           <h1 className="brand-title">{typedTitle}<span className="cursor">|</span></h1>
-          <p className="brand-subtitle">Find the most cracked developers</p>
         </motion.div>
         
         <motion.div 

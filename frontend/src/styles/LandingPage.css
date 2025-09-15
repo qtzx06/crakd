@@ -36,13 +36,13 @@
 }
 
 .brand-title {
-  font-size: 4rem;
+  font-size: 6rem;
   font-weight: 300;
   letter-spacing: 0.2rem;
   margin: 0;
   color: white;
-  text-shadow: 0 0 30px rgba(255, 255, 255, 0.4), 0 0 60px rgba(59, 130, 246, 0.3);
-  background: linear-gradient(135deg, #ffffff 0%, #60a5fa 30%, #3b82f6 70%, #ffffff 100%);
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 0 0 80px rgba(160, 196, 255, 0.4);
+  background: linear-gradient(135deg, #a0c4ff 0%, #ffffff 50%, #a0c4ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -50,8 +50,8 @@
 }
 
 .brand-title .cursor {
-  color: #60a5fa;
-  -webkit-text-fill-color: #60a5fa;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
   animation: blink 1s infinite;
   font-weight: 300;
 }
