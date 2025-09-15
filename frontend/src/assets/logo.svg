@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#d1d5db" stop-opacity="0.9"/>
-    </linearGradient>
     <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur"/>
       <feMerge>
@@ -14,14 +10,10 @@
     </filter>
   </defs>
 
-  <!-- Background circle -->
-  <circle cx="256" cy="256" r="240" fill="#0f172a"/>
+  <!-- Pure black background -->
+  <circle cx="256" cy="256" r="240" fill="#000000"/>
 
-  <!-- Big C -->
-  <path d="M360 150 
-           C 300 80, 180 80, 140 160 
-           C 100 240, 140 360, 240 380 
-           C 300 392, 360 360, 380 320"
-        stroke="url(#grad)" stroke-width="48" fill="none" stroke-linecap="round" filter="url(#glow)"/>
-
+  <!-- White C with glow -->
+  <path d="M368 144 C 300 72, 176 88, 136 176 C 96 264, 144 376, 248 392 C 308 400, 360 368, 384 336"
+        stroke="#ffffff" stroke-width="44" fill="none" stroke-linecap="round" filter="url(#glow)"/>
 </svg>
