@@ -101,6 +101,9 @@ const LandingPage = () => {
                 </svg>
               </button>
             </form>
+            {/* Laser tracing effect */}
+            <div className="laser-trace top"></div>
+            <div className="laser-trace bottom"></div>
           </div>
         </motion.div>
         <Results results={apiResponse} loading={isLoading} />
