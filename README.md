@@ -2,7 +2,7 @@
 
 AI-Powered Talent Identification for Developers.
 
-Crakd is a web application and local analysis tool designed to identify "cracked" (exceptionally talented) software developers. It leverages a hybrid AI model that combines quantitative GitHub metrics with qualitative analysis from a Large Language Model (Gemini) to rank developers based on natural language queries.
+crakd.co is a web application and local analysis tool designed to identify "cracked" (exceptionally talented) software developers. It leverages a hybrid AI model that combines quantitative GitHub metrics with qualitative analysis from a Large Language Model (Gemini) to rank developers based on natural language queries.
 
 ## Demo
 
