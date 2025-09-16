@@ -6,11 +6,21 @@ crakd.co is a web application and local analysis tool designed to identify "crac
 
 ## Demo
 
-![Demo](./media/demo.gif)
+<div align="center">
+  <img src="./media/landing.jpeg" alt="Landing Page" style="height: 400px;">
+  <br><br>
+  <a href="https://www.youtube.com/watch?v=xA1j3hPEz9I&feature=youtu.be">
+    <img src="./media/demo.gif" alt="Demo" style="height: 400px;">
+  </a>
+</div>
 
 ## Slideshow
 
-https://docs.google.com/presentation/d/1BpHcg1xGJRs0n8QMZO2NZ-OzX1LANCFfSVIV0zRcYII/edit?usp=sharing
+<div align="center">
+<a href="https://docs.google.com/presentation/d/1BpHcg1xGJRs0n8QMZO2NZ-OzX1LANCFfSVIV0zRcYII/edit?usp=sharing">
+  <img src="./media/slideshow.png" alt="Slideshow" style="height: 400px;">
+</a>
+</div>
 
 ## Tech Stack
 
@@ -20,7 +30,9 @@ https://docs.google.com/presentation/d/1BpHcg1xGJRs0n8QMZO2NZ-OzX1LANCFfSVIV0zRc
 
 ## Architecture
 
-![Architecture Diagram](./media/mermaid.svg)
+<div align="center">
+  <img src="./media/mermaid.svg" alt="Architecture Diagram">
+</div>
 
 ## Getting Started
 
@@ -74,7 +86,7 @@ https://docs.google.com/presentation/d/1BpHcg1xGJRs0n8QMZO2NZ-OzX1LANCFfSVIV0zRc
 1.  Navigate to the `backend` directory.
 2.  Run the CLI tool with your query:
     ```bash
-    python cli.py --query "your search query"
+    python cli.py "your search query"
     ```
 
 This will output the ranked list and generate a `pca_analysis.png` visualization.

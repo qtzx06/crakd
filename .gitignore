@@ -28,8 +28,6 @@ dist-ssr
 media/demo.mov
 
 # Analysis output
-*.png
-backend/pca_analysis.png
 
 # Caches
 .ruff_cache/
