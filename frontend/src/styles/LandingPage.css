@@ -31,7 +31,9 @@
 }
 
 .header {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 2rem; /* Controls space below subtitle */
 }
 
@@ -47,11 +49,15 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-family: 'Geist Mono', monospace;
+  display: inline-block; /* Ensures the element width fits content */
 }
 
 .brand-title .cursor {
-  color: #ffffff;
-  -webkit-text-fill-color: #ffffff;
+  background: linear-gradient(142.69deg, #ffeee2 0%, #eec9b0 40%, #ffffff 60%, #efb496 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   animation: blink 1s infinite;
   font-weight: 300;
 }
@@ -84,20 +90,22 @@
   max-width: 800px;
   margin: 0 auto;
   position: relative;
+  border-radius: 20px; 
+  overflow: hidden;     
 }
 
 .search-field-wrapper {
   position: relative;
   width: 100%;
   padding: 10px;
-  border-radius: 20px;
+  border-radius: 20px; 
   background: transparent;
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
   transition: all 0.3s ease;
+  z-index: 1; /* Ensure wrapper is on top */
 }
 
 .search-field-wrapper.focused {

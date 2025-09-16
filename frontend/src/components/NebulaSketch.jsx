@@ -177,12 +177,17 @@ const NebulaSketch = () => {
     function renderFrame() {
       ctx.save();
       
-      ctx.filter = 'blur(10px) brightness(100%)';
+      const isMobile = width < 768;
+      const blur = isMobile ? '5px' : '10px';
+      const brightness = isMobile ? '50%' : '100%';
+      const saturation = isMobile ? '1%' : '1%';
+
+      ctx.filter = `blur(${blur}) brightness(${brightness})`;
       ctx.drawImage(buffer.canvas, 0, 0);
       
       ctx.globalCompositeOperation = 'lighter';
       
-      ctx.filter = 'saturate(0.4269%)';
+      ctx.filter = `saturate(${saturation})`;
       ctx.drawImage(buffer.canvas, 0, 0);
       
       ctx.restore();
