@@ -7,10 +7,10 @@ crakd.co is a web application and local analysis tool designed to identify "crac
 ## Demo
 
 <div align="center">
-  <img src="./media/landing.jpeg" alt="Landing Page" style="height: 400px;">
+  <img src="./media/landing.jpeg" alt="Landing Page">
   <br><br>
   <a href="https://www.youtube.com/watch?v=xA1j3hPEz9I&feature=youtu.be">
-    <img src="./media/demo.gif" alt="Demo" style="height: 400px;">
+    <img src="./media/demo.gif" alt="Demo">
   </a>
 </div>
 
@@ -18,7 +18,7 @@ crakd.co is a web application and local analysis tool designed to identify "crac
 
 <div align="center">
 <a href="https://docs.google.com/presentation/d/1BpHcg1xGJRs0n8QMZO2NZ-OzX1LANCFfSVIV0zRcYII/edit?usp=sharing">
-  <img src="./media/slideshow.png" alt="Slideshow" style="height: 400px;">
+  <img src="./media/slideshow.png" alt="Slideshow">
 </a>
 </div>
 
