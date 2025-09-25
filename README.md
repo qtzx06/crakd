@@ -1,4 +1,4 @@
-# crakd.co
+# crakd
 
 AI-Powered Talent Identification for Developers.
 
@@ -10,7 +10,7 @@ crakd.co is a web application and local analysis tool designed to identify "crac
   <img src="./media/landing.jpeg" alt="Landing Page">
   <br><br>
   <a href="https://www.youtube.com/watch?v=xA1j3hPEz9I&feature=youtu.be">
-    <img src="./media/demo_downscaled.gif" alt="Demo" style="height: 400px;">
+    <img src="./media/demo.gif" alt="Demo" style="height: 400px;">
   </a>
 </div>
 
