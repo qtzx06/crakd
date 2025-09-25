@@ -11,7 +11,7 @@ class GeminiClient:
         if not self.api_key:
             raise ValueError("GEMINI_API_KEY environment variable not set")
         genai.configure(api_key=self.api_key)
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.model = genai.GenerativeModel('gemini-2.5-flash')
 
     async def rate_developer(self, developer_data: dict, query: str) -> dict:
         prompt = f"""

@@ -39,7 +39,7 @@
 
 .brand-title {
   font-size: 6rem;
-  font-weight: 300;
+  font-weight: 100;
   letter-spacing: 0.2rem;
   margin: 0;
   color: white;
@@ -218,7 +218,7 @@
 @media (max-width: 768px) {
   .brand-title {
     font-size: 4.5rem; /* Significantly larger title */
-    font-weight: 300;
+    font-weight: 100;
     letter-spacing: 0.1rem;
   }
   

@@ -75,6 +75,7 @@ const LandingPage = () => {
           </motion.p>
         </motion.div>
         
+        
         <motion.div 
           className="search-container"
           variants={{
