@@ -7,19 +7,15 @@ crakd.co is a web application and local analysis tool designed to identify "crac
 ## demo
 
 <div align="center">
-  <img src="./media/landing.jpeg" alt="landing page" style="max-width: 100%; height: auto;">
+  <img src="./media/landing.png" alt="landing page" style="max-width: 100%; height: auto;">
   <br><br>
-  <a href="https://www.youtube.com/watch?v=xa1j3hpez9i&feature=youtu.be">
+  <img src="./media/workflows.png" alt="workflows" style="max-width: 100%; height: auto;">
+  <br><br>
+  <a href="https://www.youtube.com/watch?v=xA1j3hPEz9I">
     <img src="./media/demo.gif" alt="demo" style="max-width: 100%; height: auto;">
   </a>
-</div>
-
-## slideshow
-
-<div align="center">
-<a href="https://docs.google.com/presentation/d/1bphcg1xgjrs0n8qmzo2nz-ozx1lancffsviv0zrcyii/edit?usp=sharing">
-  <img src="./media/slideshow.png" alt="slideshow" style="max-width: 100%; height: auto;">
-</a>
+  <br>
+  <p>click on the <a href="https://www.youtube.com/watch?v=xA1j3hPEz9I">youtube link</a> for a live demo.</p>
 </div>
 
 ## tech stack
