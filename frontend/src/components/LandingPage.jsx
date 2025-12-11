@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import NebulaSketch from './NebulaSketch';
 import Results from './Results';
@@ -10,38 +10,93 @@ const LandingPage = () => {
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [apiResponse, setApiResponse] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  
+  const [statusMessage, setStatusMessage] = useState('');
+  const abortControllerRef = useRef(null);
+
   const { displayedText: typedTitle } = useTypingAnimation('crakd.co', 150, 600);
-  
+
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
   };
-  
+
   const handleSearch = async (e) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
 
+    // Cancel any existing request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+
     setIsLoading(true);
     setApiResponse(null);
+    setStatusMessage('connecting to server...');
+
+    abortControllerRef.current = new AbortController();
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/search/${searchQuery}`);
-      const data = await response.json();
-      setApiResponse(data);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/search-stream/${encodeURIComponent(searchQuery)}`,
+        { signal: abortControllerRef.current.signal }
+      );
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n');
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            try {
+              const data = JSON.parse(line.slice(6));
+
+              if (data.type === 'status') {
+                setStatusMessage(data.message);
+              } else if (data.type === 'done') {
+                setApiResponse(data.results);
+                setIsLoading(false);
+              }
+            } catch (parseError) {
+              // Ignore parse errors for incomplete chunks
+            }
+          }
+        }
+      }
     } catch (error) {
+      if (error.name === 'AbortError') {
+        return; // Request was cancelled, ignore
+      }
       console.error("Error fetching data:", error);
-      setApiResponse({ error: "Failed to fetch data" });
+      setStatusMessage('connection failed, retrying with fallback...');
+
+      // Fallback to non-streaming endpoint
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/search/${encodeURIComponent(searchQuery)}`
+        );
+        const data = await response.json();
+        setApiResponse(data);
+      } catch (fallbackError) {
+        console.error("Fallback also failed:", fallbackError);
+        setApiResponse({ error: "failed to fetch data" });
+      }
     } finally {
       setIsLoading(false);
+      abortControllerRef.current = null;
     }
   };
-  
+
   return (
     <div className="landing-page">
       <div className="nebula-container">
         <NebulaSketch />
       </div>
-      <motion.div 
+      <motion.div
         className="content"
         initial="hidden"
         animate="visible"
@@ -57,7 +112,7 @@ const LandingPage = () => {
           },
         }}
       >
-        <motion.div 
+        <motion.div
           className="header"
           variants={{
             visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
@@ -65,7 +120,7 @@ const LandingPage = () => {
           }}
         >
           <h1 className="brand-title">{typedTitle}<span className="cursor">|</span></h1>
-          <motion.p 
+          <motion.p
             className="brand-subtitle"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -74,9 +129,9 @@ const LandingPage = () => {
             <span>made by </span><a href="https://github.com/qtzx06" target="_blank" rel="noopener noreferrer">joshua</a><span> and </span><a href="https://github.com/stephenhungg" target="_blank" rel="noopener noreferrer">stephen</a>
           </motion.p>
         </motion.div>
-        
-        
-        <motion.div 
+
+
+        <motion.div
           className="search-container"
           variants={{
             visible: { y: 0, opacity: 1, '--backdrop-blur': '15px', transition: { duration: 0.8, ease: "easeOut" } },
@@ -86,9 +141,9 @@ const LandingPage = () => {
         >
           <div className={`search-field-wrapper ${isInputFocused ? 'focused' : ''}`}>
             <form onSubmit={handleSearch}>
-              <input 
-                type="text" 
-                className="search-input" 
+              <input
+                type="text"
+                className="search-input"
                 placeholder="&quot;find me cracked rust developers&quot;"
                 value={searchQuery}
                 onChange={handleInputChange}
@@ -107,7 +162,7 @@ const LandingPage = () => {
             <div className="laser-trace bottom"></div>
           </div>
         </motion.div>
-        <Results results={apiResponse} loading={isLoading} />
+        <Results results={apiResponse} loading={isLoading} statusMessage={statusMessage} />
       </motion.div>
     </div>
   );

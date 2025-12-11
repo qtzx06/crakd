@@ -1,50 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import '../styles/Results.css';
 
-const loadingMessages = [
-  "searching for cracked devs...",
-  "analyzing your request...",
-  "querying the github nebula for developers...",
-  "assembling candidate profiles...",
-  "deploying gemini ai for qualitative analysis...",
-  "engineering quantitative features...",
-  "calculating ensemble scores and ranking candidates...",
-  "finalizing the developer rankings...",
-  "backend is spinning up, this might take a moment..."
-];
-
-const Results = ({ results, loading }) => {
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
-
-  useEffect(() => {
-    if (loading) {
-      const interval = setInterval(() => {
-        setCurrentMessageIndex((prevIndex) => (prevIndex + 1) % loadingMessages.length);
-      }, 3000);
-      return () => clearInterval(interval);
-    }
-  }, [loading]);
-
+const Results = ({ results, loading, statusMessage }) => {
   if (loading) {
     return (
       <div className="loading-message">
         <AnimatePresence mode="wait">
           <motion.div
-            key={currentMessageIndex}
+            key={statusMessage}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3 }}
           >
-            {loadingMessages[currentMessageIndex]}
+            {statusMessage || 'initializing...'}
           </motion.div>
         </AnimatePresence>
       </div>
     );
   }
 
-  const developerList = (results || []).slice(0, 5);
+  const developerList = results || [];
 
   return (
     <AnimatePresence>
@@ -65,10 +42,16 @@ const Results = ({ results, loading }) => {
               className="developer-card"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
+              transition={{ duration: 0.3, delay: index * 0.05 }}
             >
               <div className="developer-info">
-                <span className="developer-login">{dev.username}</span>
+                <div className="developer-header">
+                  <span className="developer-rank">#{index + 1}</span>
+                  <span className="developer-login">{dev.username}</span>
+                  {dev.ensemble_score && (
+                    <span className="developer-score">{Math.round(dev.ensemble_score)}</span>
+                  )}
+                </div>
                 {dev.reasoning && (
                   <p className="developer-summary">
                     {dev.reasoning}
@@ -87,7 +70,7 @@ const Results = ({ results, loading }) => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          No developers found for this query.
+          no developers found for this query.
         </motion.div>
       )}
     </AnimatePresence>
