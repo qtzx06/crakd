@@ -40,6 +40,11 @@ const LandingPage = () => {
         { signal: abortControllerRef.current.signal }
       );
 
+      // If streaming endpoint doesn't exist, fall back
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
 
