@@ -11,7 +11,7 @@ class XAIClient:
         if not self.api_key:
             raise ValueError("XAI_API_KEY environment variable not set")
         self.base_url = "https://api.x.ai/v1"
-        self.model = "grok-4-1-fast-reasoning"
+        self.model = "grok-4-1-fast-non-reasoning"
 
     async def _chat_completion(self, prompt: str) -> str:
         async with httpx.AsyncClient() as client:
