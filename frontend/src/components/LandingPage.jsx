@@ -47,13 +47,17 @@ const LandingPage = () => {
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
+      let buffer = '';
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
-        const chunk = decoder.decode(value);
-        const lines = chunk.split('\n');
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n\n');
+
+        // Keep the last incomplete chunk in buffer
+        buffer = lines.pop() || '';
 
         for (const line of lines) {
           if (line.startsWith('data: ')) {
@@ -67,7 +71,7 @@ const LandingPage = () => {
                 setIsLoading(false);
               }
             } catch (parseError) {
-              // Ignore parse errors for incomplete chunks
+              console.error('Parse error:', parseError, line);
             }
           }
         }
